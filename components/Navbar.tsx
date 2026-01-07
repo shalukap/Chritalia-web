@@ -25,7 +25,7 @@ const Navbar: React.FC = () => {
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2" onClick={closeMenu}>
            
-             <img src="https://res.cloudinary.com/dy3myxhnf/image/upload/v1767808979/NewLogo_ctgxys.png" height={100} width={150} alt="" />
+             <img src="https://res.cloudinary.com/dy3myxhnf/image/upload/v1767808979/NewLogo_ctgxys.png" height={100} width={200} alt="" />
             
             <span className={`text-xl font-bold tracking-tight ${scrolled ? 'text-slate-900' : 'text-white'}`}>
             

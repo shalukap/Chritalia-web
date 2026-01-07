@@ -21,7 +21,7 @@ const Home: React.FC = () => {
             alt="Logistic Trucks" 
             className="w-full h-full object-cover brightness-[0.3]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/50 to-transparent"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-800/10 via-slate-900/50 to-transparent"></div>
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-20">
