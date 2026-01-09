@@ -8,6 +8,8 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
+  
+
 
   useEffect(() => {
     const handleScroll = () => {
