@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Truck, MapPin, Phone, Mail, Linkedin, Facebook } from 'lucide-react';
+import { Truck, MapPin, Phone, Mail, Linkedin, Facebook,Home  } from 'lucide-react';
 import { BRAND_NAME, BRAND_LOCATION, NAV_LINKS } from '../constants';
 
 const Footer: React.FC = () => {
@@ -61,15 +61,19 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               <li className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-amber-500 mt-1 flex-shrink-0" />
-                <span>Via dell'Industria, 12<br />37100 Verona (VR), Italy</span>
+                <span>VIA DELLA PACE 13<br />37124, VERONA (VR), Italy</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone className="w-5 h-5 text-amber-500 flex-shrink-0" />
-                <span>+39 045 123 4567</span>
+                <span>+39 377 333 1089</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail className="w-5 h-5 text-amber-500 flex-shrink-0" />
                 <span>info@chritalia.it</span>
+              </li>
+              <li className="flex items-center space-x-3">
+                <Home className="w-5 h-5 text-amber-500 flex-shrink-0" />
+                <span>Codice SDI : M5UXCR1</span>
               </li>
             </ul>
           </div>
@@ -77,7 +81,7 @@ const Footer: React.FC = () => {
 
         <div className="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center text-sm text-slate-500">
           <p>© {new Date().getFullYear()} {BRAND_NAME} SAS. All rights reserved.</p>
-          <p className="mt-4 md:mt-0">Professional P.IVA: IT01234567890</p>
+          <p className="mt-4 md:mt-0">Professional P.IVA: 05079040233</p>
         </div>
       </div>
     </footer>

@@ -28,7 +28,7 @@ const Contact: React.FC = () => {
                 <MapPin className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Our Headquarters</h3>
-              <p className="text-slate-500">Via dell'Industria, 12<br />37100 Verona (VR), Italy</p>
+              <p className="text-slate-500">WARNAKULASURIYA FERNANDO SUJITH NIROSHAN E C.<br/>VIA DELLA PACE 13<br />37124, Verona (VR), Italy</p>
             </div>
 
             <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-gray-100">
@@ -36,7 +36,7 @@ const Contact: React.FC = () => {
                 <Phone className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Direct Line</h3>
-              <p className="text-slate-500">Office: +39 045 123 4567<br />24/7 Logistics: +39 345 678 9012</p>
+              <p className="text-slate-500">Cell : +39 377 333 1089</p>
             </div>
 
             <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-gray-100">
@@ -44,7 +44,7 @@ const Contact: React.FC = () => {
                 <Mail className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-slate-900 mb-2">Email Us</h3>
-              <p className="text-slate-500">Quotes: sales@chritalia.it<br />General: info@chritalia.it</p>
+              <p className="text-slate-500">Pec : chritaliasas@pec.it<br />Mail : info@chritalia.it</p>
             </div>
           </div>
 
