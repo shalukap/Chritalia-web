@@ -73,10 +73,10 @@ export const TESTIMONIALS: Testimonial[] = [
 ];
 
 export const KPIs: KPI[] = [
-  { label: 'Deliveries Yearly', value: '5,000', suffix: '+' },
+  { label: 'Deliveries Yearly', value: '4,000', suffix: '+' },
   { label: 'On-Time Rate', value: '99.8', suffix: '%' },
-  { label: 'Countries Covered', value: '24', suffix: '' },
-  { label: 'Professional Drivers', value: '150', suffix: '+' }
+  { label: 'Cities Covered', value: '24', suffix: '' },
+  { label: 'Professional Drivers', value: '10', suffix: '+' }
 ];
 
 export const ABOUT_TEXT = `Chritalia SAS is a leading company in road transport and logistics services based in Verona, Italy. We are your trusted partner for domestic and international road transportation, offering reliable, efficient, and on-time delivery solutions throughout Italy and Europe.
