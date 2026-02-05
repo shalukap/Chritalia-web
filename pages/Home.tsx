@@ -99,7 +99,7 @@ const Home: React.FC = () => {
   muted
   loop
   playsInline
-  className="rounded-[2.5rem]  relative z-10 w-full h-full object-cover"
+  className="rounded-[2.5rem] shadow-2xl relative z-10 w-full h-full object-cover"
 />
 
 
