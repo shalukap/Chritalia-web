@@ -103,6 +103,7 @@ const Home: React.FC = () => {
 />
 
 
+
             <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-amber-600 rounded-[2.5rem] z-0 hidden lg:block"></div>
           </div>
           <div>
