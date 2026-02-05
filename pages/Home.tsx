@@ -94,13 +94,14 @@ const Home: React.FC = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-16 items-center">
           <div className="relative">
           <video
-  src="/videos/about-video.mp4"
+  src="https://res.cloudinary.com/di3ia3coc/video/upload/v1770309045/about-video_hgjmtq.mp4"
   autoPlay
   muted
   loop
   playsInline
   className="rounded-[2.5rem] shadow-2xl relative z-10 w-full h-full object-cover"
-></video>
+/>
+
 
             <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-amber-600 rounded-[2.5rem] z-0 hidden lg:block"></div>
           </div>
