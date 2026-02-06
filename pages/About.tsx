@@ -37,7 +37,7 @@ const About: React.FC = () => {
               <Award className="w-12 h-12 text-amber-600" />
               <div>
                 <h4 className="font-bold text-slate-900">Certified Excellence</h4>
-                <p className="text-sm text-slate-500">Adhering to ISO 9001 & EU Logistics Standards</p>
+                <p className="text-sm text-slate-500">Adhering to the CQC Certification and International Transport</p>
               </div>
             </div>
           </div>
