@@ -246,7 +246,7 @@ const Home: React.FC = () => {
                 <Link to="/contact" className="px-10 py-5 bg-white text-amber-600 rounded-2xl font-bold text-xl hover:bg-slate-100 transition-all shadow-xl">
                   Request a Quote
                 </Link>
-                <a href="tel:+390451234567" className="px-10 py-5 border-2 border-white/30 text-white rounded-2xl font-bold text-xl hover:bg-white/10 transition-all">
+                <a href="tel:+393773331089" className="px-10 py-5 border-2 border-white/30 text-white rounded-2xl font-bold text-xl hover:bg-white/10 transition-all">
                   Call Now
                 </a>
               </div>
