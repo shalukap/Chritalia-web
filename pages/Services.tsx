@@ -1,113 +1,135 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Truck, CheckCircle2, Package, TrendingUp, Cpu, Factory, ShoppingBag, FlaskConical, Car } from 'lucide-react';
-import { SERVICES } from '../constants';
+import { Check, Package, Cpu, Factory, ShoppingBag, FlaskConical, Car, ArrowRight } from 'lucide-react';
+import { IMAGES } from '../constants';
+import PageHero from '../components/PageHero';
+import Reveal from '../components/Reveal';
+import LiquidImage from '../components/three/LiquidImage';
+import { SplitText, Magnetic, Tilt } from '../components/motion';
+import { useI18n } from '../i18n';
+import { useContent } from '../i18n/content';
+
+const INDUSTRY_ICONS = [Factory, ShoppingBag, Package, Car, FlaskConical, Cpu];
 
 const Services: React.FC = () => {
-  const industries = [
-    { label: 'Manufacturing', icon: <Factory className="w-5 h-5" /> },
-    { label: 'Retail', icon: <ShoppingBag className="w-5 h-5" /> },
-    { label: 'Distribution', icon: <Package className="w-5 h-5" /> },
-    { label: 'Automotive', icon: <Car className="w-5 h-5" /> },
-    { label: 'Food & Beverage', icon: <FlaskConical className="w-5 h-5" /> },
-    { label: 'Technology', icon: <Cpu className="w-5 h-5" /> },
-  ];
+  const { t } = useI18n();
+  const { services, fleet } = useContent();
+  const p = t.servicesPage;
 
   return (
-    <div className="pt-24 pb-20">
-      {/* Hero */}
-      <section className="gradient-navy py-24 mb-20 text-white overflow-hidden relative">
-        <div className="absolute top-0 right-0 w-1/3 h-full opacity-10">
-          <Truck className="w-full h-full rotate-12 scale-150" />
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <h1 className="text-5xl font-black mb-6">Our Services</h1>
-          <p className="text-xl text-slate-300 max-w-2xl">
-            Precision logistics, domestic mastery, and international reach. 
-            Discover how Chritalia SAS powers your supply chain.
-          </p>
+    <div>
+      <PageHero
+        eyebrow={p.eyebrow}
+        title={p.title}
+        subtitle={p.subtitle}
+        image={IMAGES.renaultDepot}
+        imageAlt={p.imageAlt}
+        caption={p.caption}
+      />
+
+      {/* Services as alternating chapters */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28 space-y-24 md:space-y-32">
+        {services.map((service, idx) => (
+          <section key={service.id} className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            <Reveal className={`lg:col-span-7 ${idx % 2 ? 'lg:order-2' : ''}`}>
+              <LiquidImage images={[service.image]} alt={service.title} lens={0.7} className="aspect-[16/10] rounded-3xl" />
+            </Reveal>
+
+            <div className={`lg:col-span-5 glass rounded-3xl p-8 md:p-10 ${idx % 2 ? 'lg:order-1' : ''}`}>
+              <Reveal className="flex items-center gap-4 mb-6">
+                <span className="w-12 h-12 rounded-xl bg-navy text-accent flex items-center justify-center [&>svg]:w-6 [&>svg]:h-6">
+                  {service.icon}
+                </span>
+                <span className="font-display text-sm font-semibold text-accent-deep">0{idx + 1}</span>
+              </Reveal>
+              <h2 className="font-display font-bold text-3xl md:text-4xl tracking-tight leading-[1.08] text-navy mb-5">
+                <SplitText text={service.title} />
+              </h2>
+              <Reveal className="text-ink-soft leading-relaxed mb-8">
+                {service.description} {p.care}
+              </Reveal>
+              <Reveal as="ul" className="grid sm:grid-cols-2 gap-x-6 gap-y-3">
+                {p.checklist.map((item) => (
+                  <li key={item} className="flex items-start gap-2.5 text-sm text-navy">
+                    <Check className="w-4 h-4 text-accent-deep mt-0.5 flex-shrink-0" />
+                    {item}
+                  </li>
+                ))}
+              </Reveal>
+            </div>
+          </section>
+        ))}
+      </div>
+
+      {/* Fleet line-up */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="font-display font-bold text-4xl md:text-6xl tracking-tight leading-[1.02] text-navy mb-14">
+            <SplitText text={p.fleetTitle} />
+          </h2>
+          <div className="grid md:grid-cols-3 gap-6">
+            {fleet.map((v, i) => (
+              <Reveal key={v.id} delay={i * 120}>
+                <Tilt className="rounded-3xl overflow-hidden glass p-2 h-full" max={4}>
+                  <img src={v.image} alt={v.name} className="w-full aspect-[4/3] object-cover rounded-2xl" />
+                  <div className="p-6">
+                    <div className="text-[11px] font-semibold uppercase tracking-[0.2em] text-accent-deep mb-1">{v.tagline}</div>
+                    <h3 className="font-display font-bold text-2xl text-navy tracking-tight mb-4">{v.name}</h3>
+                    <div className="flex gap-6">
+                      {v.specs.map((s, si) => (
+                        <div key={si}>
+                          <div className="text-[10px] uppercase tracking-[0.15em] text-ink-faint">{s.label}</div>
+                          <div className="font-display font-semibold text-sm text-navy">{s.value}</div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </Tilt>
+              </Reveal>
+            ))}
+          </div>
         </div>
       </section>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-3 gap-16">
-        {/* Main Content */}
-        <div className="lg:col-span-2 space-y-24">
-          {SERVICES.map((service, idx) => (
-            <div key={service.id} className="group">
-              <div className="flex items-center space-x-6 mb-8">
-                <div className="w-20 h-20 bg-emerald-600 rounded-3xl flex items-center justify-center text-white shadow-xl">
-                  {service.icon}
-                </div>
-                <h2 className="text-3xl font-bold text-slate-900">{service.title}</h2>
-              </div>
-              <img 
-                src={`https://picsum.photos/id/${100 + idx}/800/400`} 
-                alt={service.title} 
-                className="w-full h-80 object-cover rounded-[2.5rem] mb-8 shadow-lg"
-              />
-              <p className="text-lg text-slate-600 leading-relaxed mb-8">
-                {service.description} With years of operational excellence, we ensure your goods are treated with the highest care. Our {service.title.toLowerCase()} solution includes real-time tracking, documentation management, and 24/7 support.
-              </p>
-              <div className="grid md:grid-cols-2 gap-4">
-                {[
-                  'Full Load (FTL) & Part Load (LTL)',
-                  'Real-time GPS Monitoring',
-                  'Verified EU Compliance',
-                  'Customized Route Planning'
-                ].map((item) => (
-                  <div key={item} className="flex items-center space-x-3 text-slate-700 font-medium">
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600" />
-                    <span>{item}</span>
+      {/* Industries + quote */}
+      <section className="py-20 md:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div>
+            <h2 className="font-display font-bold text-4xl md:text-5xl tracking-tight leading-[1.05] text-navy mb-10">
+              <SplitText text={p.industriesTitle} />
+            </h2>
+            <Reveal className="grid grid-cols-2 gap-3">
+              {p.industries.map((label, i) => {
+                const Icon = INDUSTRY_ICONS[i];
+                return (
+                  <div key={label} className="flex items-center gap-3 glass rounded-xl px-4 py-4 text-sm font-medium text-navy">
+                    <span className="text-accent-deep"><Icon className="w-5 h-5" /></span>
+                    {label}
                   </div>
-                ))}
+                );
+              })}
+            </Reveal>
+          </div>
+
+          <Reveal>
+            <div className="relative rounded-3xl overflow-hidden bg-navy text-white p-5 md:p-8">
+              <img src={IMAGES.warehouseSunset} alt="" className="absolute inset-0 w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-navy/45" />
+              <div className="relative glass-dark rounded-2xl p-8 md:p-10">
+                <h3 className="font-display font-bold text-3xl md:text-4xl tracking-tight mb-4">{p.quoteTitle}</h3>
+                <p className="text-white/70 mb-8 leading-relaxed max-w-md">{p.quoteText}</p>
+                <Magnetic strength={0.25}>
+                  <Link to="/contact" className="group inline-flex items-center gap-3 bg-accent text-navy px-7 py-4 rounded-full font-semibold hover:bg-white transition-colors">
+                    {t.common.requestQuote} <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+                  </Link>
+                </Magnetic>
+                <p className="text-sm text-white/50 mt-6">{t.common.respond}</p>
               </div>
             </div>
-          ))}
-
-          {/* Industries Served */}
-          <section className="bg-gray-50 p-12 rounded-[3rem] border border-gray-100">
-            <h3 className="text-2xl font-bold text-slate-900 mb-8">Industries We Serve</h3>
-            <div className="flex flex-wrap gap-4">
-              {industries.map((ind) => (
-                <div key={ind.label} className="bg-white px-6 py-4 rounded-2xl flex items-center space-x-3 shadow-sm border border-gray-100 hover:border-emerald-200 transition-colors">
-                  <div className="text-emerald-600">{ind.icon}</div>
-                  <span className="font-bold text-slate-700">{ind.label}</span>
-                </div>
-              ))}
-            </div>
-          </section>
+          </Reveal>
         </div>
-
-        {/* Sidebar Quote Form */}
-        <aside className="lg:col-span-1">
-          <div className="sticky top-32 bg-slate-900 p-8 rounded-[2.5rem] shadow-2xl text-white">
-            <TrendingUp className="w-12 h-12 text-emerald-500 mb-6" />
-            <h3 className="text-2xl font-bold mb-4">Start Growing Your Business</h3>
-            <p className="text-slate-400 mb-8">Get a customized logistics quote today. Our team will analyze your requirements and provide the most efficient route and cost solution.</p>
-            
-            <form className="space-y-4 mb-8">
-              <input 
-                type="text" 
-                placeholder="Company Name" 
-                className="w-full bg-slate-800 border-0 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:ring-2 focus:ring-emerald-500"
-              />
-              <input 
-                type="email" 
-                placeholder="Email Address" 
-                className="w-full bg-slate-800 border-0 rounded-xl px-4 py-3 text-white placeholder-slate-500 focus:ring-2 focus:ring-emerald-500"
-              />
-              <button className="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-xl shadow-lg transition-all">
-                Request Quick Quote
-              </button>
-            </form>
-
-            <div className="pt-6 border-t border-slate-800 text-sm text-slate-500 text-center">
-              We respond quickly during business hours.
-            </div>
-          </div>
-        </aside>
-      </div>
+      </section>
     </div>
   );
 };

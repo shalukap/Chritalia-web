@@ -1,86 +1,78 @@
 
 import React from 'react';
-import { Truck, Globe, MapPin, Zap, ShieldCheck, Clock, UserCheck, Activity } from 'lucide-react';
-import { NavItem, ServiceItem, Testimonial, KPI } from './types';
+import { Globe, MapPin, Zap, ShieldCheck, Clock, UserCheck, Activity } from 'lucide-react';
+import type { Dict } from './i18n/en';
+
+type NavKey = keyof Omit<Dict['nav'], 'quote' | 'openMenu' | 'closeMenu' | 'language'>;
 
 export const BRAND_NAME = "Chritalia SAS";
-export const BRAND_LOCATION = "Verona, Italy";
 
-export const NAV_LINKS: NavItem[] = [
-  { label: 'Home', href: '/' },
-  { label: 'Services', href: '/services' },
-  { label: 'Coverage', href: '/#coverage' },
-  { label: 'About', href: '/about' },
-  { label: 'Contact', href: '/contact' },
+const brand = (file: string) => `/imgs/brand/${file}.webp`;
+
+// Photorealistic renders and photos of the Chritalia fleet (see public/imgs/brand).
+export const IMAGES = {
+  hubScania: brand('hub-scania'),
+  volvoHighway: brand('volvo-highway'),
+  volvoConvoy: brand('volvo-convoy'),
+  actrosDepot: brand('actros-depot'),
+  renaultDepot: brand('renault-depot'),
+  scaniaTuscany: brand('scania-tuscany'),
+  letteringDetail: brand('lettering-detail'),
+  mixedFleetDepot: brand('mixed-fleet-depot'),
+  vanLorryAlps: brand('van-lorry-alps'),
+  lineupDepot: brand('lineup-depot'),
+  warehouseSunset: brand('warehouse-sunset'),
+  ducatoDolomites: brand('ducato-dolomites'),
+  ducatoCard: brand('ducato-dolomites-card'),
+  lorryAlps: brand('lorry-alps'),
+  nightHighway: brand('night-highway'),
+};
+
+export const PROMO_VIDEO = '/videos/about-video.mp4';
+export const LOGO_URL = '/imgs/NewLogo.png';
+
+/** Images for the home hero slider (captions live in the translations). */
+export const HERO_IMAGES = [IMAGES.volvoHighway, IMAGES.actrosDepot, IMAGES.vanLorryAlps, IMAGES.renaultDepot];
+
+// Language-independent data. Text for each item lives in i18n/<lang>.ts at the same index.
+export const NAV_LINKS: { key: NavKey; href: string }[] = [
+  { key: 'home', href: '/' },
+  { key: 'services', href: '/services' },
+  { key: 'fleet', href: '/#fleet' },
+  { key: 'coverage', href: '/#coverage' },
+  { key: 'about', href: '/about' },
+  { key: 'contact', href: '/contact' },
 ];
 
-export const SERVICES: ServiceItem[] = [
-  {
-    id: 'domestic',
-    title: 'Domestic Road Transport',
-    description: 'Reliable shipment and delivery across all Italian regions with optimized regional hubs.',
-    icon: <MapPin className="w-8 h-8" />
-  },
-  {
-    id: 'international',
-    title: 'International Road Transport',
-    description: 'Extensive European network covering major trade routes with full compliance to EU standards.',
-    icon: <Globe className="w-8 h-8" />
-  },
-  {
-    id: 'logistics',
-    title: 'Logistics & Route Optimization',
-    description: 'Advanced planning to reduce travel time, fuel consumption, and operational costs.',
-    icon: <Activity className="w-8 h-8" />
-  },
-  {
-    id: 'express',
-    title: 'Time-Critical Deliveries',
-    description: 'High-priority express solutions for urgent freight that requires immediate dispatch.',
-    icon: <Zap className="w-8 h-8" />
-  }
+export const SERVICE_META = [
+  { id: 'domestic', icon: <MapPin className="w-8 h-8" />, image: IMAGES.vanLorryAlps },
+  { id: 'international', icon: <Globe className="w-8 h-8" />, image: IMAGES.volvoHighway },
+  { id: 'logistics', icon: <Activity className="w-8 h-8" />, image: IMAGES.mixedFleetDepot },
+  { id: 'express', icon: <Zap className="w-8 h-8" />, image: IMAGES.nightHighway },
 ];
 
-export const TRUST_BADGES = [
-  { label: 'On-time delivery', icon: <Clock className="w-5 h-5" /> },
-  { label: 'EU standards', icon: <ShieldCheck className="w-5 h-5" /> },
-  { label: 'Professional drivers', icon: <UserCheck className="w-5 h-5" /> },
-  { label: 'Continuous monitoring', icon: <Activity className="w-5 h-5" /> },
+export const FLEET_META = [
+  { id: 'trucks', image: IMAGES.actrosDepot },
+  { id: 'lorries', image: IMAGES.lorryAlps },
+  { id: 'vans', image: IMAGES.ducatoCard },
 ];
 
-export const TESTIMONIALS: Testimonial[] = [
-  {
-    id: '1',
-    name: 'Marco Rossi',
-    company: 'Verona Manufacturing Ltd.',
-    content: 'Chritalia SAS has been our reliable partner for over 3 years. Their precision and care for our goods are unmatched in the region.',
-    rating: 5
-  },
-  {
-    id: '2',
-    name: 'Elena Bianchi',
-    company: 'EuroDistribution Gmbh',
-    content: 'Professionalism at its best. They handle our cross-border logistics with absolute transparency and consistent on-time delivery.',
-    rating: 5
-  },
-  {
-    id: '3',
-    name: 'Giovanni Verde',
-    company: 'Italian Retail Solutions',
-    content: 'The tracking updates and route optimization they provide have significantly reduced our logistics overhead. Highly recommended.',
-    rating: 4
-  }
+export const TRUST_ICONS = [
+  <Clock className="w-5 h-5" />,
+  <ShieldCheck className="w-5 h-5" />,
+  <UserCheck className="w-5 h-5" />,
+  <Activity className="w-5 h-5" />,
 ];
 
-export const KPIs: KPI[] = [
-  { label: 'Deliveries Yearly', value: '4,000', suffix: '+' },
-  { label: 'On-Time Rate', value: '99.8', suffix: '%' },
-  { label: 'Cities Covered', value: '24', suffix: '' },
-  { label: 'Professional Drivers', value: '10', suffix: '+' }
+export const TESTIMONIAL_META = [
+  { id: '1', name: 'Marco Rossi', company: 'Verona Manufacturing Ltd.', rating: 5 },
+  { id: '2', name: 'Elena Bianchi', company: 'EuroDistribution GmbH', rating: 5 },
+  { id: '3', name: 'Giovanni Verde', company: 'Italian Retail Solutions', rating: 4 },
 ];
 
-export const ABOUT_TEXT = `Chritalia SAS is a leading company in road transport and logistics services based in Verona, Italy. We are your trusted partner for domestic and international road transportation, offering reliable, efficient, and on-time delivery solutions throughout Italy and Europe.
-
-With years of experience and a team of highly professional drivers, Chritalia SAS ensures every transport request is handled with speed, precision, and care. Our shipment and delivery processes are carefully organized to optimize routes, reduce travel time, and guarantee cost-effective logistics solutions.
-
-Every step of the operation is continuously monitored and managed by our skilled professionals to ensure maximum safety, flexibility, and accessibility. At Chritalia SAS, we are committed to providing transparent, professional, and customer-focused transport services that meet the highest European standards.`;
+export const KPI_VALUES = [
+  { value: '4,000', suffix: '+' },
+  { value: '99.8', suffix: '%' },
+  { value: '24', suffix: '' },
+  { value: '10', suffix: '+' },
+];

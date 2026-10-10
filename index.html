@@ -5,16 +5,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chritalia SAS | Road Transport & Logistics</title>
+    <meta name="description" content="Chritalia SAS — road transport and logistics from Verona. Trucks, lorries and delivery vans moving goods across Italy and Europe.">
+    <meta name="theme-color" content="#f6f5f1">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        .gradient-navy {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-        }
-    </style>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['Montserrat', 'Inter', 'sans-serif'],
+              sans: ['Inter', 'system-ui', 'sans-serif'],
+            },
+            colors: {
+              paper: { DEFAULT: '#f6f5f1', 2: '#eeece6', 3: '#e4e1d8' },
+              ink: { DEFAULT: '#0e1726', soft: '#4a5566', faint: '#8a93a3' },
+              navy: { DEFAULT: '#0b2545', 2: '#13315c', 3: '#1d4580' },
+              accent: { DEFAULT: '#c9a24d', deep: '#8f6b1f', soft: '#f3ead6' },
+              sky: { soft: '#e3e9f3' },
+            },
+            borderRadius: { '4xl': '2rem', '5xl': '2.75rem' },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script type="importmap">
 {
   "imports": {
@@ -28,7 +48,7 @@
 </script>
 <link rel="stylesheet" href="/index.css">
 </head>
-<body class="bg-gray-50 text-slate-900">
+<body class="bg-paper text-ink antialiased">
     <div id="root"></div>
 <script type="module" src="/index.tsx"></script>
 </body>

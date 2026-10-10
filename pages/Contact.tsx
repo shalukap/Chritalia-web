@@ -1,133 +1,195 @@
 
 import React, { useState } from 'react';
 import { Mail, Phone, MapPin, Send, CheckCircle } from 'lucide-react';
+import PageHero from '../components/PageHero';
+import Reveal from '../components/Reveal';
+import { Magnetic, Tilt } from '../components/motion';
+import { IMAGES } from '../constants';
+import { useI18n } from '../i18n';
+
+const Field: React.FC<{ label: string; children: React.ReactNode }> = ({ label, children }) => (
+  <label className="block space-y-2">
+    <span className="text-sm font-medium text-ink-soft">{label}</span>
+    {children}
+  </label>
+);
 
 const Contact: React.FC = () => {
+  const { t } = useI18n();
+  const p = t.contactPage;
   const [submitted, setSubmitted] = useState(false);
+  const [formData, setFormData] = useState({
+    company: '',
+    contact: '',
+    email: '',
+    phone: '',
+    pickup: '',
+    delivery: '',
+    freight: '',
+    date: '',
+    notes: '',
+  });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  // Opens a pre-filled Gmail draft to the office with the quote details.
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const subject = 'Freight Quote Request';
+    const f = p.fields;
+    const body = [
+      `${f.company}: ${formData.company}`,
+      `${f.contact}: ${formData.contact}`,
+      `${f.email}: ${formData.email}`,
+      `${f.phone}: ${formData.phone}`,
+      `${f.pickup}: ${formData.pickup}`,
+      `${f.delivery}: ${formData.delivery}`,
+      `${f.freight}: ${formData.freight}`,
+      `${f.date}: ${formData.date}`,
+      '',
+      `${f.notes}:`,
+      formData.notes,
+    ].join('\n');
+
+    window.location.href =
+      `https://mail.google.com/mail/?view=cm&fs=1&to=S.chritalia@gmail.com&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
     setSubmitted(true);
   };
 
+  const cards = [
+    {
+      icon: <MapPin className="w-5 h-5" />,
+      title: p.hq,
+      body: <>WARNAKULASURIYA FERNANDO SUJITH NIROSHAN E C.<br />VIA DELLA PACE 13<br />37124, Verona (VR), {t.footer.country}</>,
+    },
+    {
+      icon: <Phone className="w-5 h-5" />,
+      title: p.line,
+      body: <a href="tel:+393773331089" className="hover:text-navy transition-colors">{p.cell}: +39 377 333 1089</a>,
+    },
+    {
+      icon: <Mail className="w-5 h-5" />,
+      title: p.email,
+      body: (
+        <>
+          PEC: <a href="mailto:chritaliasas@pec.it" className="hover:text-navy transition-colors">chritaliasas@pec.it</a><br />
+          Email: <a href="mailto:info@chritalia.it" className="hover:text-navy transition-colors">info@chritalia.it</a>
+        </>
+      ),
+    },
+  ];
+
   return (
-    <div className="pt-24 min-h-screen bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl font-black text-slate-900 mb-6">Get Your Freight Moving</h1>
-          <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-            Complete the form below for a comprehensive transport quote, or reach out to our Verona office directly.
-          </p>
-        </div>
+    <div>
+      <PageHero
+        eyebrow={p.eyebrow}
+        title={p.title}
+        subtitle={p.subtitle}
+        image={IMAGES.warehouseSunset}
+        imageAlt={p.imageAlt}
+        caption={p.caption}
+      />
 
-        <div className="grid lg:grid-cols-3 gap-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-28">
+        <div className="grid lg:grid-cols-3 gap-6">
           {/* Info Cards */}
-          <div className="lg:col-span-1 space-y-6">
-            <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-gray-100">
-              <div className="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 mb-6">
-                <MapPin className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Our Headquarters</h3>
-              <p className="text-slate-500">WARNAKULASURIYA FERNANDO SUJITH NIROSHAN E C.<br/>VIA DELLA PACE 13<br />37124, Verona (VR), Italy</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-gray-100">
-              <div className="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 mb-6">
-                <Phone className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Direct Line</h3>
-              <p className="text-slate-500">Cell : +39 377 333 1089</p>
-            </div>
-
-            <div className="bg-white p-8 rounded-[2rem] shadow-xl shadow-slate-200/50 border border-gray-100">
-              <div className="w-12 h-12 bg-amber-100 rounded-2xl flex items-center justify-center text-amber-600 mb-6">
-                <Mail className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">Email Us</h3>
-              <p className="text-slate-500">Pec : chritaliasas@pec.it<br />Mail : info@chritalia.it</p>
-            </div>
+          <div className="lg:col-span-1 space-y-4">
+            {cards.map((card, i) => (
+              <Reveal key={i} delay={i * 100}>
+                <Tilt className="group rounded-2xl p-7 glass" max={4}>
+                  <div className="w-11 h-11 rounded-xl bg-navy text-accent flex items-center justify-center mb-6">
+                    {card.icon}
+                  </div>
+                  <h3 className="font-display font-bold text-lg text-navy mb-2">{card.title}</h3>
+                  <p className="text-sm text-ink-soft leading-relaxed">{card.body}</p>
+                </Tilt>
+              </Reveal>
+            ))}
           </div>
 
           {/* Form */}
-          <div className="lg:col-span-2">
-            <div className="bg-white p-10 md:p-16 rounded-[3rem] shadow-2xl shadow-slate-200 border border-gray-100">
+          <Reveal delay={150} className="lg:col-span-2">
+            <div className="rounded-3xl p-7 md:p-12 glass-strong">
               {submitted ? (
-                <div className="text-center py-20 animate-in fade-in zoom-in duration-500">
-                  <div className="w-24 h-24 bg-amber-100 rounded-full flex items-center justify-center text-amber-600 mx-auto mb-8">
-                    <CheckCircle className="w-12 h-12" />
+                <div className="text-center py-20 fade-up">
+                  <div className="w-20 h-20 rounded-full bg-navy text-accent flex items-center justify-center mx-auto mb-8">
+                    <CheckCircle className="w-10 h-10" />
                   </div>
-                  <h2 className="text-3xl font-black text-slate-900 mb-4">Quote Request Received!</h2>
-                  <p className="text-lg text-slate-600 mb-8 max-w-md mx-auto">
-                    Thank you for reaching out. A logistics specialist from our Verona office will review your request and contact you within 2 business hours.
-                  </p>
-                  <button 
+                  <h2 className="font-display font-bold text-3xl text-navy tracking-tight mb-4">{p.successTitle}</h2>
+                  <p className="text-lg text-ink-soft mb-10 max-w-md mx-auto">{p.successText}</p>
+                  <button
                     onClick={() => setSubmitted(false)}
-                    className="px-8 py-4 bg-amber-600 text-white rounded-xl font-bold hover:bg-amber-700 transition-all"
+                    className="px-8 py-4 bg-navy text-white rounded-full font-semibold hover:bg-navy-3 transition-colors"
                   >
-                    Send Another Request
+                    {p.another}
                   </button>
                 </div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-8">
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Company Name</label>
-                      <input required type="text" className="w-full bg-slate-50 border border-gray-200 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all" placeholder="Acme Logistics Ltd" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Contact Person</label>
-                      <input required type="text" className="w-full bg-slate-50 border border-gray-200 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all" placeholder="Mario Rossi" />
-                    </div>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <h2 className="font-display font-bold text-3xl md:text-4xl text-navy tracking-tight mb-2">{p.formTitle}</h2>
+                  <p className="text-ink-soft mb-4">{p.formLead}</p>
+
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <Field label={p.fields.company}>
+                      <input name="company" value={formData.company} onChange={handleChange} required type="text" className="field" placeholder={p.placeholders.company} />
+                    </Field>
+                    <Field label={p.fields.contact}>
+                      <input name="contact" value={formData.contact} onChange={handleChange} required type="text" className="field" placeholder="Mario Rossi" />
+                    </Field>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Email Address</label>
-                      <input required type="email" className="w-full bg-slate-50 border border-gray-200 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all" placeholder="mario@company.com" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Phone Number</label>
-                      <input required type="tel" className="w-full bg-slate-50 border border-gray-200 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all" placeholder="+39 000 000 0000" />
-                    </div>
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <Field label={p.fields.email}>
+                      <input name="email" value={formData.email} onChange={handleChange} required type="email" className="field" placeholder="mario@company.com" />
+                    </Field>
+                    <Field label={p.fields.phone}>
+                      <input name="phone" value={formData.phone} onChange={handleChange} required type="tel" className="field" placeholder="+39 000 000 0000" />
+                    </Field>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Pickup Location</label>
-                      <input required type="text" className="w-full bg-slate-50 border border-gray-200 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all" placeholder="City, Country" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Delivery Location</label>
-                      <input required type="text" className="w-full bg-slate-50 border border-gray-200 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all" placeholder="City, Country" />
-                    </div>
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <Field label={p.fields.pickup}>
+                      <input name="pickup" value={formData.pickup} onChange={handleChange} required type="text" className="field" placeholder={p.placeholders.city} />
+                    </Field>
+                    <Field label={p.fields.delivery}>
+                      <input name="delivery" value={formData.delivery} onChange={handleChange} required type="text" className="field" placeholder={p.placeholders.city} />
+                    </Field>
                   </div>
 
-                  <div className="grid md:grid-cols-2 gap-8">
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Freight Type & Volume</label>
-                      <input required type="text" className="w-full bg-slate-50 border border-gray-200 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all" placeholder="e.g. 10 Europallets, 5000kg" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Desired Date</label>
-                      <input required type="date" className="w-full bg-slate-50 border border-gray-200 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all" />
-                    </div>
+                  <div className="grid md:grid-cols-2 gap-5">
+                    <Field label={p.fields.freight}>
+                      <input name="freight" value={formData.freight} onChange={handleChange} required type="text" className="field" placeholder={p.placeholders.freight} />
+                    </Field>
+                    <Field label={p.fields.date}>
+                      <input name="date" value={formData.date} onChange={handleChange} required type="date" className="field" />
+                    </Field>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="text-sm font-bold text-slate-700 uppercase tracking-wider">Additional Notes</label>
-                    <textarea className="w-full bg-slate-50 border border-gray-200 rounded-2xl px-6 py-4 focus:ring-4 focus:ring-amber-500/10 focus:border-amber-500 outline-none transition-all h-32" placeholder="Tell us more about your shipment requirements..."></textarea>
-                  </div>
+                  <Field label={p.fields.notes}>
+                    <textarea name="notes" value={formData.notes} onChange={handleChange} className="field h-32 resize-none" placeholder={p.placeholders.notes} />
+                  </Field>
 
-                  <div className="flex items-center justify-between pt-4">
-                    <p className="text-sm text-slate-500">We respond quickly during business hours.</p>
-                    <button type="submit" className="px-10 py-5 bg-amber-600 text-white rounded-2xl font-black text-lg hover:bg-amber-700 transition-all shadow-xl shadow-amber-900/20 flex items-center">
-                      Request Quote <Send className="ml-3 w-5 h-5" />
-                    </button>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-2">
+                    <p className="text-sm text-ink-faint">{t.common.respond}</p>
+                    <Magnetic strength={0.25}>
+                      <button
+                        type="submit"
+                        className="group inline-flex items-center gap-3 bg-navy text-white pl-8 pr-2 py-2 rounded-full font-semibold hover:bg-navy-3 transition-colors"
+                      >
+                        {p.submit}
+                        <span className="w-11 h-11 rounded-full bg-accent text-navy flex items-center justify-center">
+                          <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                        </span>
+                      </button>
+                    </Magnetic>
                   </div>
                 </form>
               )}
             </div>
-          </div>
+          </Reveal>
         </div>
       </div>
     </div>
